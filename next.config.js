@@ -1,17 +1,17 @@
 const { withExpo } = require("@expo/next-adapter");
+const withImages = require("next-images");
+const withTM = require("next-transpile-modules")(["react-native", "expo"]);
 
-/** @type {import('next').NextConfig} */
-const nextConfig = withExpo({
-  reactStrictMode: true,
-  swcMinify: true,
-  transpilePackages: [
-    "react-native",
-    "expo",
-    // Add more React Native / Expo packages here...
-  ],
-  experimental: {
-    forceSwcTransforms: true,
-  },
-});
+const nextConfig = withExpo(
+  withImages(
+    withTM({
+      reactStrictMode: true,
+      swcMinify: true,
+      experimental: {
+        forceSwcTransforms: true,
+      },
+    })
+  )
+);
 
 module.exports = nextConfig;
